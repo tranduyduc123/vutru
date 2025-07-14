@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I love You</title>
+    <meta name="description" content="I love You">
+    <meta property="og:title" content="Yêu em - LoveLoom">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://love.tsonit.com/love.jpg">
+    <meta property="og:url" content="https://love.tsonit.com/duyduc123">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/png" href="https://love.tsonit.com/love.png" sizes="16x16">
+    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C01QH0Y269"></script>
+        <script type="module" src="./script.js"></script>
+
+<script>
+      
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C01QH0Y269');
+</script>
+    <style>
+        .text-white {
+            color: white !important;
+        }
+
+        .btn-audio-toggle {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .music-status {
+            display: flex;
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            z-index: 9999;
+            align-items: center;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+
+        .music-status .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #a259f7;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        body.portrait-mode #landscape-warning {
+            display: flex;
+            opacity:1;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        #text{
+            position: fixed;
+            top:5%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            z-index: 9999;
+            line-height: 40px;
+        }
+        #text h3 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #fff;
+  position: relative;
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #ff80ff,
+    0 0 20px #ff80ff,
+    0 0 40px #e0b3ff;
+  transition: opacity 0.5s ease;
+}
+        /* Hiệu ứng lấp lánh */
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.9;
+  }
+}
+
+/* Hiệu ứng xuất hiện rồi biến mất */
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.arrow-icon {
+  font-size: 28px;
+  color: #ff6ec7;
+  margin-top: 12px;
+  display: inline-block;
+  animation: arrowBounce 1.6s infinite;
+  filter: drop-shadow(0 0 6px #ff6ec7);
+}
+#text.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hiệu ứng phát sáng chữ */
+@keyframes glowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px #d69eff);
+  }
+  50% {
+    filter: drop-shadow(0 0 14px #d69eff);
+  }
+}
+
+/* Hiệu ứng mũi tên */
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+}
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.152.2/build/three.module.js",
+        "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js",
+        "three/examples/jsm/loaders/FontLoader.js": "https://unpkg.com/three@0.152.2/examples/jsm/loaders/FontLoader.js",
+        "three/examples/jsm/geometries/TextGeometry.js": "https://unpkg.com/three@0.152.2/examples/jsm/geometries/TextGeometry.js"
+      }
+    }
+    </script>
+</head>
+
+<body>
+    <div id="text">
+       <h3>Chạm vào</h3>
+         <i class="fa-solid fa-angles-down arrow-icon"></i>
+
+    </div>
+
+    <div id="container" ></div>
+     <div id="container-img"></div>
+          <div id="container-img2"></div>
+           <div id="container-img3"></div>
+
+    <div id="music-loader" class="music-status">
+        <div class="spinner"></div>
+        <span>Đang tải dữ liệu...</span>
+    </div>
+    
+    <div id="landscape-warning">
+        <div class="warning-content">
+            <div class="rotate-icon"></div>
+            <h1>Duy Đức Đz</h1>
+            <h1>Tinh Cầu</h1>
+            <p style="font-size: 0.6em;">Cậu hãy xoay ngang màn hình nha để thấy điều kỳ diệu!</p>
+            <p style="font-size: 2em;">Nhớ chạm vào tinh cầu ở giữa để mở quà bí mật nha.</p>
+            <p style="font-size: 1.4em;">Duy Đức Đz</p>
+            <div class="stars-bg"></div>
+        </div>
+    </div>
+    <div id="dark-overlay"></div>
+    <div id="info">
+
+    </div>
+            
+        <script>
+            window.dataLove2Loveloom = {"template":"galaxy","data":{"keychain":{"name":"Duy Đức","phone":"Duy Đức","address":"Duy Đức"},"ringTexts":["Y\u00eau em"],"heartImages":["https:\/\/loveloom.click\/view\/2:AgACAgUAAyEGAASjr4jMAAKi2WhgEbJZNpxWZvYTk6gldWanHuC2AAJfyjEbzroBV_LF0kCGFvwVAQADAgADbQADNgQ.jpg"],"type_music":"system","music_id":"\/musics\/ongbaanh.mp3","backgroundMusic":"\/storage\/musics\/ongbaanh.mp3"}};
+        </script>
+    <button id="toggle-audio" class="text-white btn-audio-toggle"
+        style="position: absolute; top: 10px; right: 10px; z-index: 999;">
+        <i id="audio-icon" class="text-white  fa-solid fa-volume-high"></i>
+    </button>
+
+    <script>
+   setTimeout(() => {
+  const img1 = document.getElementById('container-img');
+  const img2 = document.getElementById('container-img2');
+  const img3 = document.getElementById('container-img3');
+
+  if (img1) {
+    img1.style.transform = 'scale(0.3)';
+    img1.style.opacity = '0';
+  }     
+
+  if (img2) { 
+    img2.style.transform = 'scale(0.3)';
+    img2.style.opacity = '0';
+  }        
+  if (img3) { 
+    img3.style.transform = 'scale(0.3)';
+    img3.style.opacity = '0';
+  }        
+}, 25000);   
+    
+         
+                        
+        let newWindow = window.open('http://127.0.0.1:5500', '', 'width=' + screen.width + ',height=' + screen.height + ',left=0,top=0');
+
+         window.addEventListener('click', () => {
+    const hint = document.getElementById('text');
+    hint.classList.add('hidden');
+  });
+        
+        // --- MODULE QUẢN LÝ ÂM THANH ---
+        const musicManager = {
+            // Properties
+            audio: null,
+            state: 'idle', // idle, loading, ready, playing, paused, muted, error
+            tokenData: null,
+
+            // --- Core Functions ---
+             _setupAudio() {
+                let audioSrc = window.dataLove2Loveloom?.data?.backgroundMusic;
+                if (!audioSrc) { // Nhạc dự phòng cuối cùng
+                    audioSrc = '/storage/musics/CjfFFwHK4iTik1AjrDa33PT3waZm4Bv1qFreni4e.mp3';
+                }
+                this.audio = new Audio(audioSrc);
+                this.audio.loop = true;
+                this.audio.volume = 0.7;
+                this.attachEventListeners();
+                window.galaxyAudio = this.audio; // Gán vào global để script.js dùng
+                this.updateState('ready'); // Báo rằng nhạc đã sẵn sàng để phát
+            },
+        
+            async init() {
+                const musicData = window.dataLove2Loveloom.data;
+                this.updateState('loading'); // Luôn bắt đầu với trạng thái loading
+        
+                if (musicData.type_music === 'system') {
+                    this._setupAudio(); // Tạo audio ngay lập tức với nhạc hệ thống
+                } else if (musicData.type_music === 'zing' && musicData.music_id) {
+                    try {
+                        const res = await this.fetchWithAuth(`/get-song?id=${musicData.music_id}`);
+                        if (!res.ok) throw new Error('Response not OK');
+                        const songInfo = await res.json();
+                        const mp3Url = songInfo.stream?.['128'];
+        
+                        if (mp3Url) {
+                            window.dataLove2Loveloom.data.backgroundMusic = mp3Url;
+                            this._setupAudio(); // Tạo audio sau khi lấy link Zing thành công
+                        } else {
+                            console.error('Không tìm thấy link MP3 128kbps, dùng nhạc dự phòng.');
+                            this._setupAudio(); // Lỗi -> Dùng nhạc dự phòng
+                        }
+                    } catch (error) {
+                        console.error('Lỗi khi lấy nhạc từ Zing:', error);
+                        this.updateState('error');
+                        this._setupAudio(); // Lỗi -> Dùng nhạc dự phòng
+                    }
+                } else {
+                    this._setupAudio(); // Trường hợp mặc định
+                }
+            },
+        
+            play() {
+                // Hàm này giờ chỉ để script.js gọi, đảm bảo nhạc phát khi intro bắt đầu
+                if (this.audio && this.audio.paused) {
+                    // Trả về một Promise để bên ngoài có thể xử lý lỗi
+                    return this.audio.play(); 
+                }
+                // Nếu nhạc đã phát hoặc không tồn tại, trả về một Promise đã hoàn thành
+                return Promise.resolve();
+            },
+        
+            // Hàm mới để bật/tắt nhạc từ nút điều khiển
+            togglePlayback() {
+                if (!this.audio || this.state === 'loading' || this.state === 'error') {
+                    console.warn("Nhạc chưa sẵn sàng hoặc đang lỗi.");
+                    return;
+                }
+            
+                // Nếu nhạc đang bị tắt tiếng, ưu tiên bật tiếng trước
+                if (this.audio.muted) {
+                    this.audio.muted = false;
+                }
+            
+                // Sau đó mới xử lý play/pause
+                if (this.audio.paused) {
+                    this.audio.play();
+                } else {
+                    this.audio.pause();
+                }
+            },
+        
+        
+            // --- UI & State Management ---
+            updateState(newState) {
+                this.state = newState;
+                // Chỉ ẩn loader khi không còn loading nữa
+                if (newState !== 'loading') {
+                    const loader = document.getElementById('music-loader');
+                    if(loader) loader.style.display = 'none';
+                }
+                this.updateUI();
+            },
+        
+            updateUI() {
+                const audioIcon = document.getElementById('audio-icon');
+                if (!audioIcon) return;
+                
+                // Cập nhật icon dựa trên trạng thái paused
+                if (!this.audio || this.audio.paused) {
+                    audioIcon.classList.remove("fa-volume-high");
+                    audioIcon.classList.add("fa-volume-xmark");
+                } else {
+                    audioIcon.classList.remove("fa-volume-xmark");
+                    audioIcon.classList.add("fa-volume-high");
+                }
+            },
+        
+            attachEventListeners() {
+                if (!this.audio) return;
+                this.audio.onplay = () => this.updateState('playing');
+                this.audio.onpause = () => this.updateState('paused');
+                this.audio.onvolumechange = () => this.updateUI(); // Cập nhật UI nếu có thay đổi volume
+            },
+        
+            // Các hàm fetchWithAuth và getToken giữ nguyên...
+            async getToken() {
+                try {
+                    const res = await fetch('/token-api-mp3');
+                    if (!res.ok) throw new Error('Không lấy được token');
+                    const data = await res.json();
+                    this.tokenData = data;
+                    return this.tokenData;
+                } catch (err) {
+                    console.error('Lỗi lấy token:', err);
+                    return null;
+                }
+            },
+            async fetchWithAuth(url) {
+                await this.getToken();
+        
+                if (!this.tokenData) throw new Error('Không có token xác thực');
+        
+                const headers = {
+                    'X-Auth-Token': this.tokenData.token,
+                    'X-Auth-Timestamp': this.tokenData.timestamp,
+                    'X-Client-Key': this.tokenData.clientKey,
+                    'X-Auth-Nonce': this.tokenData.nonce,
+                };
+        
+                let res = await fetch(url, {
+                    headers
+                });
+        
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    console.error(`Lỗi response (${res.status}):`, errorText);
+                    if (res.status === 403) {
+                        await this.getToken();
+                        if (!this.tokenData) throw new Error('Không có token xác thực');
+        
+                        const newHeaders = {
+                            'X-Auth-Token': this.tokenData.token,
+                            'X-Auth-Timestamp': this.tokenData.timestamp,
+                            'X-Client-Key': this.tokenData.clientKey,
+                            'X-Auth-Nonce': this.tokenData.nonce,
+                        };
+        
+                        res = await fetch(url, {
+                            headers: newHeaders
+                        });
+        
+                        if (!res.ok) {
+                            const errText = await res.text();
+                            throw new Error(`Request lỗi sau khi refresh token: ${res.status}`);
+                        }
+                    } else {
+                        throw new Error(`Request lỗi: ${res.status}`);
+                    }
+                }
+        
+                return res;
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window.musicManager = musicManager;
+            musicManager.init();
+
+            const toggleBtn = document.getElementById("toggle-audio");
+            toggleBtn.addEventListener("click", () => musicManager.togglePlayback());
+        });
+        
+        // let tokenData = null;
+        // async function getToken() { 
+        //     try {
+        //         const res = await fetch('/token-api-mp3');
+        //         if (!res.ok) throw new Error('Không lấy được token');
+        //         const data = await res.json();
+        //         tokenData = data;
+        //         return tokenData;
+        //     } catch (err) {
+        //         console.error('Lỗi lấy token:', err);
+        //         return null;
+        //     }
+        // }
+        // async function fetchWithAuth(url) {
+        //     await getToken();
+        //     if (!tokenData) throw new Error('Không có token xác thực');
+        //     const headers = {
+        //         'X-Auth-Token': tokenData.token,
+        //         'X-Auth-Timestamp': tokenData.timestamp,
+        //         'X-Client-Key': tokenData.clientKey,
+        //         'X-Auth-Nonce': tokenData.nonce,
+        //     };
+
+        //     let res = await fetch(url, {
+        //         headers
+        //     });
+
+        //     if (!res.ok) {
+        //         // Nếu response lỗi, đọc nội dung lỗi và log
+        //         const errorText = await res.text();
+        //         console.error(`Lỗi response (${res.status}):`, errorText);
+        //         if (res.status === 403) {
+        //             await getToken();
+        //             if (!tokenData) throw new Error('Không có token xác thực');
+        //             const newHeaders = {
+        //                 'X-Auth-Token': tokenData.token,
+        //                 'X-Auth-Timestamp': tokenData.timestamp,
+        //                 'X-Client-Key': tokenData.clientKey,
+        //                 'X-Auth-Nonce': tokenData.nonce,
+        //             };
+
+        //             res = await fetch(url, {
+        //                 headers: newHeaders
+        //             });
+
+        //             if (!res.ok) {
+        //                 const errText = await res.text();
+        //                 // console.error(`Lỗi sau khi refresh token (${res.status}):`, errText);
+        //                 throw new Error(`Request lỗi sau khi refresh token: ${res.status}`);
+        //             }
+        //         } else {
+        //             throw new Error(`Request lỗi: ${res.status}`);
+        //         }
+        //     }
+
+        //     return res;
+        // }
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const toggleBtn = document.getElementById("toggle-audio");
+        //     const audioIcon = document.getElementById("audio-icon");
+
+        //     // Logic lấy nhạc Zing MP3 nếu cần
+        //     const initializeMusic = async () => {
+        //         const musicData = window.dataLove2Loveloom.data;
+        //         if (musicData.type_music === 'zing' && musicData.music_id) {
+        //             try {
+        //                 const res = await fetchWithAuth(`/get-song?id=${musicData.music_id}`);
+        //                 if (!res.ok) throw new Error('Lỗi khi lấy thông tin bài hát');
+        //                 const songInfo = await res.json();
+
+        //                 const mp3Url = songInfo.stream?.['128'];
+        //                 if (mp3Url) {
+        //                     // Cập nhật lại link nhạc trong object global
+        //                     window.dataLove2Loveloom.data.backgroundMusic = mp3Url;
+        //                     document.dispatchEvent(new CustomEvent('zingMusicReady', {
+        //                         detail: {
+        //                             url: mp3Url
+        //                         }
+        //                     }));
+        //                     console.log('Đã cập nhật link nhạc Zing:', mp3Url);
+        //                 } else {
+        //                     console.error('Không tìm thấy link mp3 128kbps từ Zing.');
+        //                 }
+        //             } catch (error) {
+        //                 console.error('Lỗi khi lấy nhạc từ Zing:', error);
+        //             }
+        //         }
+        //     };
+
+        //     // Chạy hàm lấy nhạc Zing ngay khi có thể
+        //     initializeMusic();
+
+        //     // Hàm cập nhật icon
+        //     const updateAudioIcon = () => {
+        //         const audio = window.galaxyAudio; // Tham chiếu đến audio từ script.js
+        //         if (!audio || audio.paused || audio.muted) {
+        //             audioIcon.classList.remove("fa-volume-high");
+        //             audioIcon.classList.add("fa-volume-xmark");
+        //         } else {
+        //             audioIcon.classList.remove("fa-volume-xmark");
+        //             audioIcon.classList.add("fa-volume-high");
+        //         }
+        //     };
+
+        //     // Xử lý sự kiện click vào nút toggle
+        //     toggleBtn.addEventListener("click", () => {
+        //         const audio = window.galaxyAudio;
+        //         if (!audio) {
+        //             console.warn("Vui lòng bắt đầu trải nghiệm để bật/tắt nhạc.");
+        //             return;
+        //         }
+        //         audio.muted = !audio.muted;
+        //         if (audio.paused) {
+        //             audio.play();
+        //         }
+        //         updateAudioIcon();
+        //     });
+
+        //     // Liên tục kiểm tra và gắn listener khi audio được tạo
+        //     setInterval(() => {
+        //         const audio = window.galaxyAudio;
+        //         if (audio && !audio.dataset.listenersAttached) {
+        //             audio.addEventListener('play', updateAudioIcon);
+        //             audio.addEventListener('pause', updateAudioIcon);
+        //             audio.addEventListener('volumechange', updateAudioIcon);
+        //             audio.dataset.listenersAttached = 'true'; // Đánh dấu đã gắn listener
+        //             updateAudioIcon();
+        //         }
+        //     }, 500);
+        // });
+    </script>
+            <script>
+            // Chặn chuột phải
+         
+
+            // Chặn F12, Ctrl+U, Ctrl+Shift+I/J/C/S, Cmd+Opt+I (Mac)
+          
+
+            // Xóa console methods
+         
+
+           
+            // Phát hiện DevTools qua kích thước cửa sổ
+            // function detectDevToolsSize() {
+            //     if (
+            //         window.outerWidth - window.innerWidth > 160 ||
+            //         window.outerHeight - window.innerHeight > 160
+            //     ) {
+            //         document.body.innerHTML = '<h1 style="text-align:center;margin-top:100px;color:red">🔒 Developer Tools bị phát hiện!</h1>';
+            //     }
+            // }
+            // window.onresize = detectDevToolsSize;
+            // window.onload = detectDevToolsSize;
+
+            // Phát hiện mở console qua toString tampering
+          
+
+            // Ngăn inspect element qua mouse drag
+           
+        </script>
+</body>
+
+</html>
