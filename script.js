@@ -1,8 +1,8 @@
-import * as THREE from 'three';
+import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
-
+  
 
 
 const scene = new THREE.Scene();
